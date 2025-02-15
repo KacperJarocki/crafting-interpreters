@@ -93,9 +93,10 @@ class Scanner {
         break;
       case '/':
         if (match('/')) {
-          // A comment goes until the end of the line.
           while (peek() != '\n' && !isAtEnd())
             advance();
+        } else if (match('*')) {
+          commentBlock();
         } else {
           addToken(TokenType.SLASH);
         }
@@ -120,6 +121,24 @@ class Scanner {
           Lox.error(line, "Unexpected character. ");
         }
         break;
+    }
+  }
+
+  private void commentBlock() {
+    while ((peek() != '*' || peekNext() != '/') && !isAtEnd()) {
+      if (peek() == '\n')
+        line++;
+      advance();
+    }
+    if (isAtEnd()) {
+      Lox.error(line, "Unterminated Comment block. ");
+      return;
+    } else if (current + 2 >= source.length()) {
+      Lox.error(line, "Unterminated Comment block. ");
+      return;
+    } else {
+      advance();
+      advance();
     }
   }
 
