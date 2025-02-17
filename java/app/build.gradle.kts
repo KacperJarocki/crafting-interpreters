@@ -36,13 +36,3 @@ tasks.register<JavaExec>("generateAst") {
     classpath = sourceSets.main.get().runtimeClasspath
     args = listOf("./src/main/java/org/craftinginterpreters/lox/") // If the task requires arguments, add them here
 }
-
-tasks.register<JavaExec>("AstPrinter") {
-    mainClass.set("org.craftinginterpreters.lox.AstPrinter") // Fully qualified class name
-    classpath = sourceSets.main.get().runtimeClasspath
-}
-
-tasks.register<JavaExec>("rpnp") {
-    mainClass.set("org.craftinginterpreters.lox.RpnNotationPrinter") // Fully qualified class name
-    classpath = sourceSets.main.get().runtimeClasspath
-}
