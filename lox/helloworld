@@ -1,7 +1,9 @@
-/* 
- *first line
-  second line 
-  print "hi"
-*/
-2+2*2;
-3/3*3;
+print "hello world";
+print 2+2*2;
+print 3/3*3;
+
+var a = 1;
+print a;
+
+a = a +21;
+print a;
