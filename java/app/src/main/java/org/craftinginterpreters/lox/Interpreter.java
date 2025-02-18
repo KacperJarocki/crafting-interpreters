@@ -29,6 +29,12 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
   }
 
   @Override
+  public Void visitBlockStmt(Stmt.Block stmt) {
+    executeBlock(stmt.statements, new Environment(environment));
+    return null;
+  }
+
+  @Override
   public Object visitVariableExpr(Expr.Variable expr) {
     return environment.get(expr.name);
   }
@@ -52,6 +58,19 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
   private void execute(Stmt stmt) {
     stmt.accept(this);
+  }
+
+  void executeBlock(List<Stmt> statements,
+      Environment environment) {
+    Environment previous = this.environment;
+    try {
+      this.environment = environment;
+      for (Stmt statement : statements) {
+        execute(statement);
+      }
+    } finally {
+      this.environment = previous;
+    }
   }
 
   private String stringify(Object object) {
