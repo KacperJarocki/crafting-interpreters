@@ -1,10 +1,12 @@
-var n =10 ; 
-fun fib(n) {
-if (n <= 1) return n;
-return fib(n - 2) + fib(n - 1);
+fun makeCounter() {
+var i = 0;
+fun count() {
+i = i + 1;
+print i;
 }
-fun calc(a, b){
-return a * b + a + b;
+return count;
 }
-print fib(n);
-print calc(n,n);
+var counter = makeCounter();
+counter(); // "1".
+counter(); // "2".
+print counter();
